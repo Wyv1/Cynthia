@@ -2,53 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bot Links</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cynthia Bot</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #2c2f33;
-      color: #fff;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: Arial, sans-serif; }
+
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    h1 {
-      margin-bottom: 40px;
-    }
-    button {
-      background-color: #7289da;
-      border: none;
-      padding: 15px 30px;
-      margin: 10px;
       color: white;
-      font-size: 18px;
-      border-radius: 8px;
+      text-shadow: 1px 1px 4px black;
+    }
+
+    button {
+      padding: 1em 2em;
+      margin: 0.5em;
+      font-size: 1.2em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      border: none;
+      border-radius: 10px;
+      background: #5865f2;
+      color: white;
     }
-    button:hover {
-      background-color: #5b6eae;
-    }
+
     a {
+      color: white;
       text-decoration: none;
-      color: inherit;
-      display: inline-block;
+    }
+
+    .volume-control {
+      margin-top: 1em;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5em;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .volume-control label {
+      margin-bottom: 0.5em;
+    }
+
+    .warning {
+      color: yellow;
+      font-size: 0.9em;
+      margin-top: 0.3em;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>My Discord Bot</h1>
+  <video id="bgVideo" class="video-bg" autoplay muted loop>
+    <source src="background-v2.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
-  <a href="https://discord.gg/txEtqrPDkH" target="_blank" rel="noopener noreferrer">
-    <button>Join Bot Testing Server</button>
-  </a>
+  <div class="content">
+    <h1>Cynthia bot portal</h1>
+    <button><a href="https://discord.gg/txEtqrPDkH" target="_blank" rel="noopener noreferrer">Join Testing And Development Server</a></button>
+    <button><a href="https://discord.com/oauth2/authorize?client_id=1376441065770323978&scope=bot%20applications.commands&permissions=8" target="_blank" rel="noopener noreferrer">Add Bot to Server</a></button>
+    <button><a href="info/" >More Info</a></button>
+    <button><a href="help/">Self help page</a></button>
 
-  <a href="https://discord.com/oauth2/authorize?client_id=1376441065770323978&scope=bot%20applications.commands&permissions=274878225920" target="_blank" rel="noopener noreferrer">
-    <button>Add Bot to Your Server</button>
-  </a>
+    <div class="volume-control">
+      <label for="volumeSlider">🔊 Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="100" value="0" />
+      <div class="warning">⚠️ Warning: Background video may be loud at high volumes ⚠️</div>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById("bgVideo");
+    const slider = document.getElementById("volumeSlider");
+
+    slider.addEventListener("input", () => {
+      const volume = slider.value / 100;
+      video.volume = volume;
+      if (volume > 0) video.muted = false;
+      else video.muted = true;
+    });
+  </script>
+
 </body>
 </html>
